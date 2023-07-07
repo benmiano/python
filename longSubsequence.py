@@ -7,15 +7,15 @@
 # create variable array of longest increasing subsequence
 # loop through array, compare array of 1st n 2nd no ++, set subsequence to longer array
 class SubSequence:
-    def __init__(self, arrayInput) -> None:
+    def __init__(self, arrayInput: list) -> None:
         self.arrayInput = arrayInput
         self.subsequence = []
-        self.localArray = []
-        self.arrayLength = len(arrayInput)
 
-        
+    def compareSubsequences(self, array2: list):
+        if len(self.subsequence) < len(array2):
+            self.subsequence = array2
 
-    def setSubsequence(self):
+    # def setSubsequence(self):
         position = 0
         localArray = []
         while position < (self.arrayLength):
@@ -33,6 +33,22 @@ class SubSequence:
             #     return False
         return localArray
 
+    def addToSubsequence(self, j):
+        position = j
+        localArray=[]
+        while position < len(self.arrayInput):
+            localArray.append(self.arrayInput[position])
+            position = self.arrayInput.index(self.arrayInput[position])
+            if(self.arrayInput[position]>self.arrayInput[position+1]):
+                position += 1
+                continue
+        return localArray
+    
+    # loop through array
+    def getLongestSubsequence(self):
+        for i in range(len(self.arrayInput)):
+            self.compareSubsequences(self.addToSubsequence(i))
 
 mylongestSubsequence = SubSequence([0, 8, 4, 12, 2, 10, 6, 14, 1, 9, 5, 13, 3, 11, 7, 15])
-mylongestSubsequence.setSubsequence()        
+mylongestSubsequence.getLongestSubsequence()
+print (mylongestSubsequence.subsequence())
